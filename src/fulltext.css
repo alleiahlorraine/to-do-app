@@ -23,14 +23,9 @@
     border-right: 5px solid #5E1B89;
     padding: 20px;
     border-radius: 13px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80vw; 
-    max-width: 90%; 
-    height: 50vh; 
-    max-height: 80vh; 
+    padding: 20px;
+    height: 400px;
+    width: 600px;
     z-index: 10000; 
     overflow: auto;
     word-wrap: break-word; 

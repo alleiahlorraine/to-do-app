@@ -1,5 +1,8 @@
 body{
     background-color: #F8FFFE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1{
@@ -8,11 +11,28 @@ h1{
     color: #5E1B89;
 }
 
+.to-do-list-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   width: 100vw;
+   position: fixed;
+   top: 0;
+   left: 0;
+}
+
 .to-do-list {
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal;
-    padding: 10px;
+    padding: 20px;
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .input-container {
@@ -20,11 +40,6 @@ h1{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.input-container input::placeholder {
-    color: #9D71BC; 
-    opacity: 1;
 }
 
 .input-container input {
@@ -40,6 +55,12 @@ h1{
     border-radius: 4px;
     padding-right: 65px;
     white-space: nowrap;
+    margin-bottom: none;
+}
+
+.input-container input::placeholder {
+    color: #9D71BC; 
+    opacity: 1;
 }
 
 .input-container input:focus {
@@ -59,8 +80,9 @@ h1{
 
 
 .task-list-container {
-    max-height: 375px;
+    flex: 1;
     overflow-y: auto;
+    max-height: 390px;
     position: relative;
     padding-right: 10px;
 }
@@ -73,6 +95,11 @@ h1{
     transition: background-color 0.3s ease;
     border-left: 5px solid #FF7F4D;
     background-color: #FFF;
+}
+
+.task-list-container li .text {
+    padding-left: 7px;
+    padding-bottom: 3px;
 }
 
 .task-list-container li:hover {
@@ -142,8 +169,8 @@ h1{
 }
 
 ol {
-    list-style-type: none;
-    padding: 0;
+    padding-left: 0;
+    list-style: none;
 }
 
 li {
@@ -154,10 +181,23 @@ li {
     position: relative;
 }
 
-.check-icon {
-    width: 24px;
+.edit-icon,
+.delete-icon {
+    width: 24px; 
     height: 24px;
-    margin-right: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.edit-icon:hover,
+.delete-icon:hover {
+    opacity: 0.5;
+}
+
+.check-icon{
+    width: 24px; 
+    height: 24px;
+    margin-left: none;
     cursor: pointer;
 }
 
@@ -189,25 +229,12 @@ li {
     margin-top: 5px;
 }
 
-.edit-icon,
-.delete-icon {
-    width: 24px; 
-    height: 24px;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.edit-icon:hover,
-.delete-icon:hover {
-    opacity: 0.5;
-}
 
 .filter-actions-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10px;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .filter-container {
@@ -221,7 +248,7 @@ li {
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal;
-    padding: 5px 5px;
+    padding: 5px 10px;
     height: 30px;
     border: none;
     border-radius: 5px;
@@ -230,6 +257,7 @@ li {
     cursor: pointer;
     transition: background-color 0.3s;
     text-align: left;
+    align-items: left;
 }
 
 .filter-container select:hover {
@@ -276,7 +304,6 @@ li {
     color: #F8FFFE;
 }
 
-
 .actions {
     display: flex;
     align-items: center;
@@ -294,7 +321,8 @@ li {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-left: 5px; 
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .actions .delete-all-button {

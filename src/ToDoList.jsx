@@ -206,155 +206,157 @@ function ToDoList() {
     const isNoTasks = filteredTasks.length === 0;
 
     return (
-        <div className="to-do-list">
-            <h1>To-Do List</h1>
-            <div className="input-container">
-                <input
-                    type="text"
-                    placeholder="Enter new task"
-                    value={newTask}
-                    onChange={handleInputChange}
-                />
-                <div className="button-container">
-                    <img
-                        className="action-icon"
-                        src={isEditing ? confirmIcon : addIcon}
-                        alt={isEditing ? 'Confirm Edit' : 'Add'}
-                        onClick={isEditing ? (e) => isEditing && newTask !== tasks[currentTaskIndex]?.text ? confirmEdit() : e.preventDefault() : addTask}
-                        style={{ cursor: isEditing && newTask === tasks[currentTaskIndex]?.text ? 'not-allowed' : 'pointer' }}
-                        disabled={isEditing && newTask === tasks[currentTaskIndex]?.text}
+        <div className="to-do-list-container">
+            <div className="to-do-list">
+                <h1>To-Do List</h1>
+                <div className="input-container">
+                    <input
+                        type="text"
+                        placeholder="Enter new task"
+                        value={newTask}
+                        onChange={handleInputChange}
                     />
-                    {isEditing && (
+                    <div className="button-container">
                         <img
-                            className="cancel-icon"
-                            src={cancel}
-                            alt="cancel"
-                            onClick={cancelEdit}
+                            className="action-icon"
+                            src={isEditing ? confirmIcon : addIcon}
+                            alt={isEditing ? 'Confirm Edit' : 'Add'}
+                            onClick={isEditing ? (e) => isEditing && newTask !== tasks[currentTaskIndex]?.text ? confirmEdit() : e.preventDefault() : addTask}
+                            style={{ cursor: isEditing && newTask === tasks[currentTaskIndex]?.text ? 'not-allowed' : 'pointer' }}
+                            disabled={isEditing && newTask === tasks[currentTaskIndex]?.text}
                         />
+                        {isEditing && (
+                            <img
+                                className="cancel-icon"
+                                src={cancel}
+                                alt="cancel"
+                                onClick={cancelEdit}
+                            />
+                        )}
+                    </div>
+                </div>
+                <div className="filter-actions-container">
+                    <div className="filter-container">
+                        <select className="custom-select" value={filter} onChange={handleFilterChange} disabled={isEditing}>
+                            <option value="all">All Tasks</option>
+                            <option value="done">Completed Tasks</option>
+                            <option value="undone">Pending Tasks</option>
+                        </select>
+                    </div>
+                    {tasks.length > 0 && (
+                        <div className="actions">
+                            <button
+                                className="toggle-all-button"
+                                onClick={handleMarkAll}
+                                disabled={isEditing || isNoTasks}
+                            >
+                                {filteredTasks.every(task => task.completed) ? 'Mark All as Undone' : 'Mark All as Done'}
+                            </button>
+                            <button className="delete-all-button" onClick={deleteAllTasks} disabled={isEditing || isNoTasks}>
+                                Delete All
+                            </button>
+                        </div>
                     )}
                 </div>
-            </div>
-            <div className="filter-actions-container">
-                <div className="filter-container">
-                    <select className="custom-select" value={filter} onChange={handleFilterChange} disabled={isEditing}>
-                        <option value="all">All Tasks</option>
-                        <option value="done">Completed Tasks</option>
-                        <option value="undone">Pending Tasks</option>
-                    </select>
-                </div>
-                {tasks.length > 0 && (
-                    <div className="actions">
-                        <button
-                            className="toggle-all-button"
-                            onClick={handleMarkAll}
-                            disabled={isEditing || isNoTasks}
-                        >
-                            {filteredTasks.every(task => task.completed) ? 'Mark All as Undone' : 'Mark All as Done'}
-                        </button>
-                        <button className="delete-all-button" onClick={deleteAllTasks} disabled={isEditing || isNoTasks}>
-                            Delete All
-                        </button>
-                    </div>
-                )}
-            </div>
-            <Modal
-                isOpen={showDeleteModal}
-                onClose={cancelDelete}
-                onConfirm={confirmDelete}
-                message="Delete this task?"
-                confirmText="Confirm"
-                cancelText="Cancel"
-            />
-            <Modal
-                isOpen={showDeleteAllModal}
-                onClose={cancelDeleteAll}
-                onConfirm={confirmDeleteAll}
-                message="Delete all tasks?"
-                confirmText="Confirm"
-                cancelText="Cancel"
-            />
-            <Modal
-                isOpen={showEmptyTaskModal}
-                onClose={() => setShowEmptyTaskModal(false)}
-                onConfirm={() => setShowEmptyTaskModal(false)}
-                message="Seems like you forgot to put a task..."
-                confirmText="OK"
-            />
-            <Modal
-                isOpen={showMarkAllModal}
-                onClose={cancelMarkAll}
-                onConfirm={confirmMarkAll}
-                message={`Mark all tasks as done?`}
-                confirmText="Confirm"
-                cancelText="Cancel"
-            />
-            <Modal
-                isOpen={showMarkAllUndoneModal}
-                onClose={cancelMarkAllUndone}
-                onConfirm={confirmMarkAllUndone}
-                message={`Mark all tasks as undone?`}
-                confirmText="Confirm"
-                cancelText="Cancel"
-            />
-            <Modal
-                isOpen={showMarkTaskModal}
-                onClose={cancelMarkTask}
-                onConfirm={confirmMarkTask}
-                message={`Mark this task as ${tasks[pendingMarkIndex]?.completed ? 'undone' : 'done'}?`}
-                confirmText="Confirm"
-                cancelText="Cancel"
-            />
-            <FullText
-                isOpen={fullTextIndex !== null}
-                onClose={() => setFullTextIndex(null)}
-                text={fullTextIndex !== null ? tasks[fullTextIndex].text : ''}
-            />
-            <div className="task-list-container">
-                {filteredTasks.length === 0 ? (
-                    filter === 'done' ? (
-                        <p className='no-tasks-message'>You have no completed tasks yet.</p>
-                    ) : filter === 'undone' ? (
-                        <p className='no-tasks-message'>You're on a roll! Keep it up!</p>
+                <Modal
+                    isOpen={showDeleteModal}
+                    onClose={cancelDelete}
+                    onConfirm={confirmDelete}
+                    message="Delete this task?"
+                    confirmText="Confirm"
+                    cancelText="Cancel"
+                />
+                <Modal
+                    isOpen={showDeleteAllModal}
+                    onClose={cancelDeleteAll}
+                    onConfirm={confirmDeleteAll}
+                    message="Delete all tasks?"
+                    confirmText="Confirm"
+                    cancelText="Cancel"
+                />
+                <Modal
+                    isOpen={showEmptyTaskModal}
+                    onClose={() => setShowEmptyTaskModal(false)}
+                    onConfirm={() => setShowEmptyTaskModal(false)}
+                    message="Seems like you forgot to put a task..."
+                    confirmText="OK"
+                />
+                <Modal
+                    isOpen={showMarkAllModal}
+                    onClose={cancelMarkAll}
+                    onConfirm={confirmMarkAll}
+                    message={`Mark all tasks as done?`}
+                    confirmText="Confirm"
+                    cancelText="Cancel"
+                />
+                <Modal
+                    isOpen={showMarkAllUndoneModal}
+                    onClose={cancelMarkAllUndone}
+                    onConfirm={confirmMarkAllUndone}
+                    message={`Mark all tasks as undone?`}
+                    confirmText="Confirm"
+                    cancelText="Cancel"
+                />
+                <Modal
+                    isOpen={showMarkTaskModal}
+                    onClose={cancelMarkTask}
+                    onConfirm={confirmMarkTask}
+                    message={`Mark this task as ${tasks[pendingMarkIndex]?.completed ? 'undone' : 'done'}?`}
+                    confirmText="Confirm"
+                    cancelText="Cancel"
+                />
+                <FullText
+                    isOpen={fullTextIndex !== null}
+                    onClose={() => setFullTextIndex(null)}
+                    text={fullTextIndex !== null ? tasks[fullTextIndex].text : ''}
+                />
+                <div className="task-list-container">
+                    {filteredTasks.length === 0 ? (
+                        filter === 'done' ? (
+                            <p className='no-tasks-message'>You have no completed tasks yet.</p>
+                        ) : filter === 'undone' ? (
+                            <p className='no-tasks-message'>You're on a roll! Keep it up!</p>
+                        ) : (
+                            <p className='no-tasks-message'>Yayyy! You have no tasks!</p>
+                        )
                     ) : (
-                        <p className='no-tasks-message'>Yayyy! You have no tasks!</p>
-                    )
-                ) : (
-                    <ol>
-                        {filteredTasks.map((task, index) => (
-                            <li key={index}>
-                                <img
-                                    className="check-icon"
-                                    src={task.completed ? checkedIcon : uncheckedIcon}
-                                    alt="check icon"
-                                    onClick={() => taskCompletion(tasks.indexOf(task))}
-                                />
-                                <span
-                                    className={`text ${task.completed ? 'completed' : ''}`}
-                                    onClick={() => setFullTextIndex(fullTextIndex === index ? null : index)}
-                                >
-                                    {task.text}
-                                </span>
-                                <div className="task-date">
-                                    {task.completed ? `Completed on: ${task.dateCompleted}` : (task.dateModified ? `Modified on: ${task.dateModified}` : `Added on: ${task.dateCreated}`)}
-                                </div>
-                                {!task.completed && (
+                        <ol>
+                            {filteredTasks.map((task, index) => (
+                                <li key={index}>
                                     <img
-                                        className="edit-icon"
-                                        src={edit}
-                                        alt="edit"
-                                        onClick={() => editTask(tasks.indexOf(task))}
+                                        className="check-icon"
+                                        src={task.completed ? checkedIcon : uncheckedIcon}
+                                        alt="check icon"
+                                        onClick={() => taskCompletion(tasks.indexOf(task))}
                                     />
-                                )}
-                                <img
-                                    className="delete-icon"
-                                    src={trash}
-                                    alt="delete"
-                                    onClick={() => deleteTask(tasks.indexOf(task))}
-                                />
-                            </li>
-                        ))}
-                    </ol>
-                )}
+                                    <span
+                                        className={`text ${task.completed ? 'completed' : ''}`}
+                                        onClick={() => setFullTextIndex(fullTextIndex === index ? null : index)}
+                                    >
+                                        {task.text}
+                                    </span>
+                                    <div className="task-date">
+                                        {task.completed ? `Completed on: ${task.dateCompleted}` : (task.dateModified ? `Modified on: ${task.dateModified}` : `Added on: ${task.dateCreated}`)}
+                                    </div>
+                                    {!task.completed && (
+                                        <img
+                                            className="edit-icon"
+                                            src={edit}
+                                            alt="edit"
+                                            onClick={() => editTask(tasks.indexOf(task))}
+                                        />
+                                    )}
+                                    <img
+                                        className="delete-icon"
+                                        src={trash}
+                                        alt="delete"
+                                        onClick={() => deleteTask(tasks.indexOf(task))}
+                                    />
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                </div>
             </div>
         </div>
     );
