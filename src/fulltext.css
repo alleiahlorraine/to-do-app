@@ -1,0 +1,85 @@
+.full-text-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.full-text-content {
+    color: #5E1B89;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background: #F8FFFE;
+    border-left: 5px solid #F4512C;
+    border-bottom: 5px solid #F4512C;
+    border-top: 5px solid #5E1B89;
+    border-right: 5px solid #5E1B89;
+    padding: 20px;
+    border-radius: 13px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw; 
+    max-width: 90%; 
+    height: 50vh; 
+    max-height: 80vh; 
+    z-index: 10000; 
+    overflow: auto;
+    word-wrap: break-word; 
+    font-size: 1rem; 
+    line-height: 1.5; 
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+}
+
+.full-text-content p {
+    flex: 1; 
+    margin: 0; 
+}
+
+.full-text-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.full-text-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+.full-text-content::-webkit-scrollbar-thumb {
+    background: #9D71BC;
+    border-radius: 6px;
+}
+
+.full-text-content::-webkit-scrollbar-thumb:hover {
+    background: #5E1B89;
+}
+
+.close-button {
+    position: fixed;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: #F4512C;
+    color: #F8FFFE;
+    padding: 8px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 10001;
+}
+
+.close-button:hover {
+    background-color: hsl(11, 90%, 46%);
+}
